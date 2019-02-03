@@ -1,0 +1,184 @@
+{
+    "Records": [
+        {
+            "eventSource": "aws:ses",
+            "eventVersion": "1.0",
+            "ses": {
+                "mail": {
+                    "timestamp": "2018-03-28T17:13:49.810Z",
+                    "source": "prvs=618591a35=victim@example.com",
+                    "messageId": "do3rl8f7hce0qegdbgj4nvcrfufc08jgisgb5301",
+                    "destination": [
+                        "mailing-list@example.com"
+                    ],
+                    "headersTruncated": false,
+                    "headers": [
+                        {
+                            "name": "Return-Path",
+                            "value": "<prvs=618591a35=victim@example.com>"
+                        },
+                        {
+                            "name": "Received",
+                            "value": "from smtp-fw-9102.example.com (smtp-fw-9102.example.com [207.171.184.29]) by inbound-smtp.us-east-1.exampleaws.com with SMTP id do3rl8f7hce0qegdbgj4nvcrfufc08jgisgb5301 for attacker@trackingdomain.com; Wed, 28 Mar 2018 17:13:49 +0000 (UTC)"
+                        },
+                        {
+                            "name": "X-SES-Spam-Verdict",
+                            "value": "PASS"
+                        },
+                        {
+                            "name": "X-SES-Virus-Verdict",
+                            "value": "PASS"
+                        },
+                        {
+                            "name": "Received-SPF",
+                            "value": "pass (spfCheck: domain of example.com designates 207.171.184.29 as permitted sender) client-ip=207.171.184.29; envelope-from=prvs=618591a35=victim@example.com; helo=smtp-fw-9102.example.com;"
+                        },
+                        {
+                            "name": "Authentication-Results",
+                            "value": "exampleses.com; spf=pass (spfCheck: domain of example.com designates 207.171.184.29 as permitted sender) client-ip=207.171.184.29; envelope-from=prvs=618591a35=victim@example.com; helo=smtp-fw-9102.example.com; dkim=pass header.i=@example.com;"
+                        },
+                        {
+                            "name": "X-SES-RECEIPT",
+                            "value": "AEFBQUFBQUFBQUFGQ0JsWDBoRUkvaHhObUc4UDZJZ3Fmd01VRXBITytaT0g5ZXZJcGM5MUZkMysxcnp6dFIvc0VUK01hME9UeE1qNW5YNFFtTkRQYllSYm1LdURiSEtnUFRqRUk1alNqMTB4THVoNUduRWg0aDNlemtyTGpvOEIwRUVzMUljRlJLQktPN0s4b2dHRmJ0ZXVJaXd2cERTcGNQZTJkU0xWRWd6ZjdvcjJzRy9BMzQyUTlqVTN4Mkt0MFQrL2diK1dEd3E0NXkzaUtqbEFhVGFwUjkzQThSZi9TOEhXV29qMUxlY2U5Q0xWMnFCZzJKMERtZStWV21rSjZKTFcxTWcya3Z5ZER2Yy9yaDRLUmVUTGd0RE04MkNxdnZpZWZ2VnVhYVBkeHhyUXhUWXB4N3FIdjBuVCtYSCt6Y1dtQ1RMbks3eW89"
+                        },
+                        {
+                            "name": "X-SES-DKIM-SIGNATURE",
+                            "value": "a=rsa-sha256; q=dns/txt; b=AsyO42bXIZSqhqKsxvaAvTbL4TJogzYS/Hxd9foxxaXmclenkqqSlSJQbCreZaUDGHNO9ATL1nxxjPioPKKYzrw/1uvf06mMGs9Tblgv6X+OJnLgcBVBvr7WENRElPHbX1Vh/jDKUpgHKcyxDhpAhmec359yvzU9UPCj4xVgDy0=; c=relaxed/simple; s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug; d=exampleses.com; t=1522257230; v=1; bh=VOE7LtofQLVD0Sytp3LIu0j/5yBkexOU8ziiJC1JiyI=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;"
+                        },
+                        {
+                            "name": "DKIM-Signature",
+                            "value": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com; i=@example.com; q=dns/txt; s=example201209; t=1522257229; x=1553793229; h=from:to:subject:date:message-id:mime-version; bh=COFbsm3xNTQT6owFQX6USVhTNvt4Or7vwZHZ05t1eY0=; b=bkKrLPRf7IG8Ifg2lZTDDdT9ReFxLJHYlfLCK3/GrIu9hC8CQ+WUwed7vkudwlzc4go36ets2micLCkGGBx7p8VrZrVOP2mzhwYjMTttxr5zEWpzAxRyJf5L3kxlYzardnj6201ar21OxilOY7Uu+sfJ/XXGMqlcqye88hsvC7Y=;"
+                        },
+                        {
+                            "name": "X-IronPort-AV",
+                            "value": "E=Sophos;i=\"5.48,372,1517875200\";  d=\"scan'208,217\";a=\"603361728\""
+                        },
+                        {
+                            "name": "Received",
+                            "value": "from sea3-co-svc-lb6-vlan3.sea.example.com (HELO email-inbound-relay-1e-c7c08562.us-east-1.example.com) ([10.47.22.38]) by smtp-border-fw-out-9102.sea19.example.com with ESMTP/TLS/DHE-RSA-AES256-SHA; 28 Mar 2018 17:13:45 +0000"
+                        },
+                        {
+                            "name": "Received",
+                            "value": "from EX13MTAUWC001.ant.example.com (iad55-ws-svc-p15-lb9-vlan3.iad.example.com [10.40.159.166]) by email-inbound-relay-1e-c7c08562.us-east-1.example.com (8.14.7/8.14.7) with ESMTP id w2SHDg32122641 (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL) for <attacker@trackingdomain.com>; Wed, 28 Mar 2018 17:13:44 GMT"
+                        },
+                        {
+                            "name": "Received",
+                            "value": "from EX13D05UWC004.ant.example.com (10.43.162.223) by EX13MTAUWC001.ant.example.com (10.43.162.135) with Microsoft SMTP Server (TLS) id 15.0.1236.3; Wed, 28 Mar 2018 17:13:44 +0000"
+                        },
+                        {
+                            "name": "Received",
+                            "value": "from EX13D05UWC002.ant.example.com (10.43.162.92) by EX13D05UWC004.ant.example.com (10.43.162.223) with Microsoft SMTP Server (TLS) id 15.0.1236.3; Wed, 28 Mar 2018 17:13:42 +0000"
+                        },
+                        {
+                            "name": "Received",
+                            "value": "from EX13D05UWC002.ant.example.com ([10.43.162.92]) by EX13D05UWC002.ant.example.com ([10.43.162.92]) with mapi id 15.00.1236.000; Wed, 28 Mar 2018 17:13:43 +0000"
+                        },
+                        {
+                            "name": "From",
+                            "value": "\"Doe, John\" <victim@example.com>"
+                        },
+                        {
+                            "name": "To",
+                            "value": "Mailing List <mailing-list@example.com>"
+                        },
+                        {
+                            "name": "Subject",
+                            "value": "I Love Unicorns!!!"
+                        },
+                        {
+                            "name": "Thread-Topic",
+                            "value": "I Love Unicorns!!!"
+                        },
+                        {
+                            "name": "Thread-Index",
+                            "value": "AdPGuBp9xvwWIRl1STWq6C8JkHteqw=="
+                        },
+                        {
+                            "name": "Date",
+                            "value": "Wed, 28 Mar 2018 17:13:43 +0000"
+                        },
+                        {
+                            "name": "Message-ID",
+                            "value": "<8fd9d1d6faa749e29cabb2b817aa0a8d@EX13D05UWC002.ant.example.com>"
+                        },
+                        {
+                            "name": "Accept-Language",
+                            "value": "en-US"
+                        },
+                        {
+                            "name": "Content-Language",
+                            "value": "en-US"
+                        },
+                        {
+                            "name": "X-MS-Has-Attach",
+                            "value": ""
+                        },
+                        {
+                            "name": "X-MS-TNEF-Correlator",
+                            "value": ""
+                        },
+                        {
+                            "name": "x-ms-exchange-transport-fromentityheader",
+                            "value": "Hosted"
+                        },
+                        {
+                            "name": "x-originating-ip",
+                            "value": "[10.43.160.16]"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "multipart/alternative; boundary=\"_000_8fd9d1d6faa749e29cabb2b817aa0a8dEX13D05UWC002antexamplec_\""
+                        },
+                        {
+                            "name": "MIME-Version",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "Precedence",
+                            "value": "Bulk"
+                        }
+                    ],
+                    "commonHeaders": {
+                        "returnPath": "prvs=618591a35=victim@example.com",
+                        "from": [
+                            "\"Doe, John\" <victim@example.com>"
+                        ],
+                        "date": "Wed, 28 Mar 2018 17:13:43 +0000",
+                        "to": [
+                            "Mailing List <mailing-list@example.com>"
+                        ],
+                        "messageId": "<8fd9d1d6faa749e29cabb2b817aa0a8d@EX13D05UWC002.ant.example.com>",
+                        "subject": "I Love Unicorns!!!"
+                    }
+                },
+                "receipt": {
+                    "timestamp": "2018-03-28T17:13:49.810Z",
+                    "processingTimeMillis": 445,
+                    "recipients": [
+                        "attacker@trackingdomain.com"
+                    ],
+                    "spamVerdict": {
+                        "status": "PASS"
+                    },
+                    "virusVerdict": {
+                        "status": "PASS"
+                    },
+                    "spfVerdict": {
+                        "status": "PASS"
+                    },
+                    "dkimVerdict": {
+                        "status": "GRAY"
+                    },
+                    "dmarcVerdict": {
+                        "status": "GRAY"
+                    },
+                    "action": {
+                        "type": "Lambda",
+                        "functionArn": "arn:aws:lambda:us-east-1:408587083461:function:SesUnicornTracker",
+                        "invocationType": "Event"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+sam build
+sam package --s3-bucket deployments-us-west-2-mikedeck --output-template template.packaged.yaml
+sam deploy --template-file template.packaged.yaml --stack-name UnicornedMeDev --capabilities CAPABILITY_IAM\
+    --parameter-overrides \
+        TrackingDomains=dev.unicorned.me,trackingdomain2.com \
+        TestTrackingDomains=test.dev.unicorned.me,testtrackingdomain2.com \
+        VictimDomainPrefix=amazon \
+        SlackChannel=test \
+        SlackHookUrl=slack.com/hook \
+    --region us-west-2
+        

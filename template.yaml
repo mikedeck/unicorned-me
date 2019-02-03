@@ -1,0 +1,105 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A Lambda function for tracking unicorn emails via SES.
+Parameters:
+  TrackingDomains:
+    Description: Comma-delimited list of email domains configured in SES for tracking
+    Type: String
+
+  TestTrackingDomains:
+    Description: Comma-delimited list of email domains for sending test unicorns
+    Type: String
+
+  VictimDomainPrefix:
+    Description: Common prefix for valid victim domains (e.g. 'example' for example.com and example.co.uk)
+    Type: String
+  
+  TimeZone:
+    Description: Time zone for determining start and end of days for reporting and aggregation.
+    Default: America/Los_Angeles
+    Type: String
+
+  SlackHookUrl:
+    Description: The URL for an incoming Slack webhook used to send notifications
+    Type: String
+
+  SlackChannel:
+    Description: 'The Slack channel name prefixed with # where notifications should be sent'
+    Type: String
+
+Globals:
+  Function:
+    Handler: index.handler
+    Runtime: nodejs8.10
+
+Resources:
+  SesHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./lambdaFunctions/emailHandler
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Table
+      Environment:
+        Variables:
+            TABLE_NAME: !Ref Table
+            TRACKING_DOMAINS: !Ref TrackingDomains
+            TEST_TRACKING_DOMAINS: !Ref TestTrackingDomains
+            VICTIM_DOMAIN_PREFIX: !Ref VictimDomainPrefix
+            TIME_ZONE: !Ref TimeZone
+
+  SlackNotifier:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./lambdaFunctions/slackNotifier
+      Events:
+        NewDdbItem:
+          Type: DynamoDB
+          Properties:
+            Stream: !GetAtt Table.StreamArn
+            StartingPosition: TRIM_HORIZON
+
+  Table:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+        AttributeDefinitions:
+            - AttributeName: Victim
+              AttributeType: S
+            - AttributeName: Timestamp
+              AttributeType: S
+        KeySchema:
+            - AttributeName: Victim
+              KeyType: HASH
+            - AttributeName: Timestamp
+              KeyType: RANGE
+        ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+        StreamSpecification:
+            StreamViewType: NEW_IMAGE
+
+  EmailReceiptRuleSet:
+    Type: "AWS::SES::ReceiptRuleSet"
+
+  EmailReceiptRule:
+    Type: "AWS::SES::ReceiptRule"
+    DependsOn: SesPermission
+    Properties:
+        RuleSetName: !Ref EmailReceiptRuleSet
+        Rule:
+            Recipients: [!Select [0, !Split [",", !Ref TrackingDomains]]]
+            Actions: 
+                - LambdaAction:
+                    FunctionArn: !GetAtt SesHandler.Arn
+                    InvocationType: Event
+            ScanEnabled: true
+            Enabled: true
+  
+  SesPermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref SesHandler
+        Principal: ses.amazonaws.com
+        SourceAccount: 408587083461

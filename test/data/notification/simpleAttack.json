@@ -1,0 +1,66 @@
+{
+    "event": {
+        "Records": [
+            {
+                "eventID": "d7a998914cb96798fa2d7c1b85688a85",
+                "eventName": "INSERT",
+                "eventVersion": "1.1",
+                "eventSource": "aws:dynamodb",
+                "awsRegion": "us-east-1",
+                "dynamodb": {
+                    "ApproximateCreationDateTime": 1532062080,
+                    "Keys": {
+                        "Timestamp": {
+                            "S": "2017-03-08T19:53:44.046Z"
+                        },
+                        "Victim": {
+                            "S": "victim"
+                        }
+                    },
+                    "NewImage": {
+                        "Month": {
+                            "S": "2017-03"
+                        },
+                        "Attacker": {
+                            "S": "attacker"
+                        },
+                        "Test": {
+                            "BOOL": false
+                        },
+                        "Day": {
+                            "S": "2017-03-08"
+                        },
+                        "Timestamp": {
+                            "S": "2017-03-08T19:53:44.046Z"
+                        },
+                        "Week": {
+                            "S": "2017-03-05"
+                        },
+                        "Subject": {
+                            "S": "The subject"
+                        },
+                        "OriginalMessageId": {
+                            "S": "<1eda5c3f46c24995814633e9612a52f8@EX13D06UWA004.ant.amazon.com>"
+                        },
+                        "Pair": {
+                            "S": "attacker|victim"
+                        },
+                        "SesMessageId": {
+                            "S": "hqnotmiki14lfps3nnokj023tg6mmivstn358qg1"
+                        },
+                        "Victim": {
+                            "S": "victim"
+                        }
+                    },
+                    "SequenceNumber": "400000000061094035980",
+                    "SizeBytes": 334,
+                    "StreamViewType": "NEW_IMAGE"
+                },
+                "eventSourceARN": "arn:aws:dynamodb:us-east-1:408587083461:table/UnicornedMe-Dev-Table-F0SMR7DEH5YM/stream/2018-07-20T03:57:59.622"
+            }
+        ]
+    },
+    "notification": {
+
+    }
+}
