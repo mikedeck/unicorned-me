@@ -9,7 +9,6 @@ sam deploy --template-file template.packaged.yaml --stack-name UnicornedMeDev --
         TrackingDomains=dev.unicorned.me,trackingdomain2.com \
         TestTrackingDomains=test.dev.unicorned.me,testtrackingdomain2.com \
         VictimDomainPrefix=amazon \
-        SlackChannel=test \
-        SlackHookUrl=slack.com/hook \
+        ChimeHookUrl=https://hooks.chime.aws/incomingwebhooks/e3260f41-3376-4f74-a357-f2800eb10293?token=ZlZKRjlrS218MXw3RjVPNUZQYkN2ZFpmSXpPMHZwYmdSaGktNTBFdWhoamFLcjdRMDA1OW1F \
     --region us-west-2
         

@@ -1,0 +1,6 @@
+{
+    "Notifier": {
+        "TABLE_NAME": "UnicornedMeDev-Table-1FMLPSQVRFLOW",
+        "CHIME_HOOK_URL": "https://hooks.chime.aws/incomingwebhooks/e3260f41-3376-4f74-a357-f2800eb10293?token=ZlZKRjlrS218MXw3RjVPNUZQYkN2ZFpmSXpPMHZwYmdSaGktNTBFdWhoamFLcjdRMDA1OW1F"
+    }
+}

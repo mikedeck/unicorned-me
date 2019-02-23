@@ -1,0 +1,61 @@
+{
+    "Records": [
+        {
+            "eventID": "96d57a330262c3e14c2fa127d3afa977",
+            "eventName": "INSERT",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "us-west-2",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1550898098,
+                "Keys": {
+                    "Timestamp": {
+                        "S": "2019-02-22T18:13:49.810Z"
+                    },
+                    "Victim": {
+                        "S": "victim"
+                    }
+                },
+                "NewImage": {
+                    "Month": {
+                        "S": "2019-02"
+                    },
+                    "Attacker": {
+                        "S": "attacker"
+                    },
+                    "Test": {
+                        "BOOL": false
+                    },
+                    "Day": {
+                        "S": "2019-02-22"
+                    },
+                    "Timestamp": {
+                        "S": "2019-02-22T18:13:49.810Z"
+                    },
+                    "Week": {
+                        "S": "2019-02-17"
+                    },
+                    "Subject": {
+                        "S": "I Love Unicorns!!!"
+                    },
+                    "OriginalMessageId": {
+                        "S": "<8fd9d1d6faa749e29cabb2b817aa0a8d@EX13D05UWC002.ant.amazon.com>"
+                    },
+                    "Pair": {
+                        "S": "attacker|victim"
+                    },
+                    "SesMessageId": {
+                        "S": "do3rl8f7hce0qegdbgj4nvcrfufc08jgisgb5301"
+                    },
+                    "Victim": {
+                        "S": "victim"
+                    }
+                },
+                "SequenceNumber": "114588100000000007165181640",
+                "SizeBytes": 326,
+                "StreamViewType": "NEW_IMAGE"
+            },
+            "eventSourceARN": "arn:aws:dynamodb:us-west-2:408587083461:table/UnicornedMeDev-Table-1FMLPSQVRFLOW/stream/2019-01-30T00:16:38.286"
+        }
+    ]
+}
