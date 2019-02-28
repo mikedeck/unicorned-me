@@ -11,11 +11,13 @@ class SesDdbPersister {
     }
 
     async persist(email) {
+        console.log("Starting persist");
         let result;
         try {
             result = await this.ddb.put({
                 Item: email
             }).promise();
+            console.log("DDB write complete");
         } catch(err) {
             console.err("Error writting to DDB", err);
         }

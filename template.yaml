@@ -18,14 +18,19 @@ Parameters:
     Description: Time zone for determining start and end of days for reporting and aggregation.
     Default: America/Los_Angeles
     Type: String
-
-  SlackHookUrl:
-    Description: The URL for an incoming Slack webhook used to send notifications
+  
+  ChimeHookUrl:
+    Description: Webhook URL for Chime notifications
     Type: String
 
-  SlackChannel:
-    Description: 'The Slack channel name prefixed with # where notifications should be sent'
-    Type: String
+
+#   SlackHookUrl:
+#     Description: The URL for an incoming Slack webhook used to send notifications
+#     Type: String
+
+#   SlackChannel:
+#     Description: 'The Slack channel name prefixed with # where notifications should be sent'
+#     Type: String
 
 Globals:
   Function:
@@ -49,10 +54,23 @@ Resources:
             VICTIM_DOMAIN_PREFIX: !Ref VictimDomainPrefix
             TIME_ZONE: !Ref TimeZone
 
-  SlackNotifier:
+  Notifier:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./lambdaFunctions/slackNotifier
+      CodeUri: ./lambdaFunctions/notifier
+      Environment:
+        Variables:
+            TABLE_NAME: !Ref Table
+            CHIME_HOOK_URL: !Ref ChimeHookUrl
+      Timeout: 10
+      Policies:
+        Version: 2012-10-17
+        Statement:
+            Effect: Allow
+            Action: "dynamodb:Query"
+            Resource:
+                - !GetAtt Table.Arn
+                - !Sub "${Table.Arn}/*"
       Events:
         NewDdbItem:
           Type: DynamoDB
@@ -68,11 +86,34 @@ Resources:
               AttributeType: S
             - AttributeName: Timestamp
               AttributeType: S
+            - AttributeName: Attacker
+              AttributeType: S
+            - AttributeName: Pair
+              AttributeType: S
         KeySchema:
             - AttributeName: Victim
               KeyType: HASH
             - AttributeName: Timestamp
               KeyType: RANGE
+        GlobalSecondaryIndexes:
+            - IndexName: Pair
+              KeySchema:
+                - AttributeName: Pair
+                  KeyType: HASH
+              Projection:
+                ProjectionType: KEYS_ONLY
+              ProvisionedThroughput:
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
+            - IndexName: Attacker
+              KeySchema:
+                - AttributeName: Attacker
+                  KeyType: HASH
+              Projection:
+                ProjectionType: KEYS_ONLY
+              ProvisionedThroughput:
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
         ProvisionedThroughput:
             ReadCapacityUnits: 5
             WriteCapacityUnits: 5

@@ -1,5 +1,5 @@
 {
-  "name": "slacknotifier",
+  "name": "unicorned-me-notifier",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^4.2.0"
+    "aws-sdk": "^2.409.0",
+    "axios": "^0.18.0"
   }
 }
