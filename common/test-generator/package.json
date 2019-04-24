@@ -1,0 +1,20 @@
+{
+  "name": "test-generator",
+  "version": "1.0.0",
+  "description": "Common utils for the unicorned-me project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicornpartners/unicorned-me.git",
+    "directory": "common/test-generator"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unicornpartners/unicorned-me/issues"
+  },
+  "homepage": "https://github.com/unicornpartners/unicorned-me#readme"
+}

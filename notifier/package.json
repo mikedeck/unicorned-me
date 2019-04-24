@@ -1,0 +1,25 @@
+{
+  "name": "unicorned-me-notifier",
+  "version": "1.0.0",
+  "description": "Function for sending unicorn notifications",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicornpartners/unicorned-me.git",
+    "directory": "notifier"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/unit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.409.0",
+    "axios": "^0.18.0",
+    "tick": "^0.1.1"
+  },
+  "devDependencies": {
+    "nock": "^10.0.6",
+    "test-generator": "file:../common/test-generator"
+  }
+}

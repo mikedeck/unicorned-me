@@ -1,0 +1,24 @@
+{
+  "name": "unicorned-me-email-handler",
+  "version": "1.0.0",
+  "description": "Lambda handler for SES events",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicornpartners/unicorned-me.git",
+    "directory": "email-handler"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/unit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.221.1",
+    "moment-timezone": "^0.5.16"
+  },
+  "devDependencies": {
+    "sinon": "^7.2.5",
+    "test-generator": "file:../common/test-generator"
+  }
+}
