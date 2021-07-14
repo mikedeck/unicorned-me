@@ -41,7 +41,7 @@ Resources:
   SesHandler:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./lambdaFunctions/emailHandler
+      CodeUri: ./email-handler
       Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
@@ -57,7 +57,7 @@ Resources:
   Notifier:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./lambdaFunctions/notifier
+      CodeUri: ./notifier
       Environment:
         Variables:
             TABLE_NAME: !Ref Table

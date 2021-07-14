@@ -1,0 +1,16 @@
+{
+  "name": "unicorned-me-log-import",
+  "version": "1.0.0",
+  "description": "Utility for importing email events from CloudWatch Logs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicornpartners/unicorned-me.git",
+    "directory": "log-import"
+  },
+  "main": "index.js",
+  "author": "mikedeck",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}

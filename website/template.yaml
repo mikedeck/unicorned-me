@@ -1,0 +1,119 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFront distro and static site for unicorned.me'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  AcmCertificateArn:
+    Description:    The AWS Certificate Manager (ACM) certificate identifier.
+    Type:           String
+
+Resources:
+
+    CloudFrontDistribution:
+        Type: AWS::CloudFront::Distribution
+        Properties:
+          DistributionConfig:
+            Aliases:
+                - unicorned.me
+                - www.unicorned.me
+            Enabled: True
+            Comment: Unicorned.me site
+            DefaultRootObject: index.html
+            Origins:
+              -
+                Id: StaticSite
+                DomainName: !GetAtt StaticContentBucket.DomainName
+                S3OriginConfig:
+                    OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${OriginAccessIdentity}
+            ViewerCertificate: 
+                AcmCertificateArn: !Ref AcmCertificateArn
+                SslSupportMethod: sni-only
+            DefaultCacheBehavior:
+                TargetOriginId: StaticSite
+                LambdaFunctionAssociations:
+                - 
+                    EventType: viewer-request
+                    LambdaFunctionARN: !Ref QuickMailFunction.Version
+                ForwardedValues:
+                    QueryString: False
+                    Headers:
+                        - Origin
+                    Cookies:
+                        Forward: none
+                ViewerProtocolPolicy: redirect-to-https
+            CacheBehaviors:
+                - PathPattern: /index.html
+                  TargetOriginId: StaticSite
+                  ViewerProtocolPolicy: redirect-to-https
+                  ForwardedValues:
+                    QueryString: False
+                    Cookies:
+                        Forward: none
+                - PathPattern: /favicon.ico
+                  TargetOriginId: StaticSite
+                  ViewerProtocolPolicy: redirect-to-https
+                  ForwardedValues:
+                    QueryString: False
+                    Cookies:
+                        Forward: none
+                - PathPattern: /
+                  TargetOriginId: StaticSite
+                  ViewerProtocolPolicy: redirect-to-https
+                  ForwardedValues:
+                    QueryString: False
+                    Cookies:
+                        Forward: none
+    
+    OriginAccessIdentity:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties: 
+            CloudFrontOriginAccessIdentityConfig: 
+                Comment: "Access identity for unicorned.me"
+    
+    StaticContentBucket:
+        Type: AWS::S3::Bucket
+        Properties:
+            BucketName: unicorned.me
+            WebsiteConfiguration:
+                IndexDocument: index.html
+    
+    StaticContentBucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties: 
+            Bucket: !Ref StaticContentBucket
+            PolicyDocument:
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                        CanonicalUser: !GetAtt OriginAccessIdentity.S3CanonicalUserId
+                      Action: "s3:GetObject"
+                      Resource: !Sub ${StaticContentBucket.Arn}/*
+
+    QuickMailFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+          CodeUri: quick-mail/
+          Role: !GetAtt QuickMailEdgeFunctionRole.Arn
+          Runtime: nodejs8.10
+          Handler: index.handler
+          Timeout: 1
+          AutoPublishAlias: live 
+
+    QuickMailEdgeFunctionRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+          Path: "/"
+          ManagedPolicyArns:
+              - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+          AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Sid: "AllowLambdaServiceToAssumeRole"
+                Effect: "Allow"
+                Action: 
+                  - "sts:AssumeRole"
+                Principal:
+                  Service: 
+                    - "lambda.amazonaws.com"
+                    - "edgelambda.amazonaws.com"
